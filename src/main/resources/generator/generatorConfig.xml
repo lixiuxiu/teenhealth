@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- mysql-connector-java-  .jar的绝对路径 -->
+    <classPathEntry location="/Users/lixiuxiu/apache-tomcat-9.0.27/webapps/teenhealth_war/WEB-INF/lib/mysql-connector-java-8.0.18.jar" />
+
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 配置数据源 -->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/teenhealth0"
+                        userId="root"
+                        password="Lxx19941114">
+        </jdbcConnection>
+
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+
+        <!-- 配置生成的javabean所存放的路径和包（使用绝对路径） -->
+        <javaModelGenerator targetPackage="com.cx.teenhealth.bean" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!-- 配置生成的**Mapper.xml文件所存放的路径和包（使用绝对路径） -->
+        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <!-- 配置生成的**Mapper.java接口文件所存放的路径和包（使用绝对路径） -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.cx.teenhealth.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <!-- 指定我们要操作的表明和生成的javabean类名 -->
+
+        <table tableName="t_class" domainObjectName="TClass" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"></table>
+
+
+    </context>
+</generatorConfiguration>

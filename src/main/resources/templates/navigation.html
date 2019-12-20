@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <title>Hello, world!</title>
+    <style type="text/css">
+        #nav a{
+            text-align: center
+        }
+    </style>
+</head>
+<body>
+<div class="col-sm-2" id="nav">
+    <a href="/bodyFell" class="list-group-item" id="tc">
+        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>&nbsp;&nbsp;体测数据</a>
+    <a href="/trainingProgram" class="list-group-item" id="jh">
+        <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>&nbsp;&nbsp;计划训练</a>
+    <a href="/class" class="list-group-item" id="bj">
+        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;&nbsp;班级管理</a>
+    <a href="/student" class="list-group-item" id="xs">
+        <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>&nbsp;&nbsp;学生管理</a>
+    <a href="/setting" class="list-group-item" id="sb">
+        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;&nbsp;设备管理</a>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#nav a").click(function() {
+            localStorage.setItem("activeId", $(this).attr("id"));
+        });
+        var currentActive = localStorage.getItem("activeId");
+        if (currentActive) {
+            var $currentActive = $("#" + currentActive);
+            $currentActive.addClass("active");
+        }
+    });
+</script>
+
+
+
+</body>
+</html>
+

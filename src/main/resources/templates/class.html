@@ -1,0 +1,515 @@
+<!DOCTYPE>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <!-- 网站采用的字符编码 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>学生体质健康数据管理</title>
+
+
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="bootstrap-3.3.7-dist/css/bootstrap-table.min.css"
+          rel="stylesheet">
+    <link href="bootstrap-3.3.7-dist/css/bootstrap-select.min.css" rel="stylesheet" />
+
+    <title>table</title>
+
+</head>
+
+<body>
+<!-- 引入导航栏 -->
+
+<div th:include="head"></div>
+<div class="container-fluid">
+    <div class="row">
+        <!--左边菜单栏-->
+        <div th:include="navigation"></div>
+        <div class="col-sm-10">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <label>班级管理</label>
+                </div>
+                <div class="panel-body">
+
+                    <form role="form" class="form-inline">
+                        <div class="form-group ">
+                            <button type="button" class="btn btn-w-m btn-primary" >
+                                添加班级
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn  btn-w-m btn-default" >
+                               &nbsp;历史班级
+                            </button>
+                            &nbsp;
+                            <button type="button" class="btn  btn-w-m btn-warning" >
+                                &nbsp;删除班级
+                            </button>
+                            </select>
+                        </div>
+
+                    </form>
+                </div><!-- panel-body-->
+            </div>
+
+
+            <!-- 胶囊导航区 -->
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">一年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">二年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">三年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">四年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">五年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">六年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">七年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">八年级</a></li>
+                <li role="presentation"><a href="#home" role="tab" data-toggle="tab">九年级</a></li>
+            </ul>
+            <!--            <hr style="margin-top: 0;border-color:#66afe9;" />-->
+
+            <!-- 面板区 -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <table id="mytab" class="table table-hover table-striped"> </table>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="profile">
+
+                </div>
+                <div role="tabpanel" class="tab-pane" id="messages">
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<!--添加学生模态框-->
+<div class="modal fade" tabindex="-1" id="studentAddModel" role="dialog" aria-labelledby="gridSystemModalLabe2">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabe2">添加体测用户</h4>
+            </div>
+            <div class="medal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">体测号</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="studentNo" class="form-control" id="add_StudentNo" placeholder="字母与数字组合">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="studentName" class="form-control" id="add_Name" placeholder="20字以内">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="age" class="form-control" id="add_Age" placeholder="岁">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="radio  radio-inline">
+                            <label>
+                                <input type="radio" name="sex" id="Male" value="1"> 男
+                            </label>
+                        </div>
+                        <div class="radio  radio-inline">
+                            <label>
+                                <input type="radio" name="sex"  id="Female" value="2">女
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">身高</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="stature" class="form-control" id="add_High" placeholder="单位cm">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">体重</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="weight" class="form-control" id="add_Weight" placeholder="单位kg">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">左眼视力</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="leftSight" class="form-control" id="add_Left" placeholder="0.1-5.0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">右眼视力</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="rightSight" class="form-control" id="add_Right" placeholder="0.1-5.0">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="student_add_btn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!--修改学生模态框-->
+<div class="modal fade" tabindex="-1" id="studentEditModel" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel">修改用户信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="studentName" class="form-control" id="edit_Name" placeholder="50字以内">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="age" class="form-control" id="edit_Age" placeholder="岁">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="radio  radio-inline">
+                            <label>
+                                <input type="radio" name="sex" id="sex_Male" value="1"> 男
+                            </label>
+                        </div>
+                        <div class="radio  radio-inline">
+                            <label>
+                                <input type="radio" name="sex"  id="sex_Female" value="2">女
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">身高</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="stature" class="form-control" id="edit_High" placeholder="单位cm">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">体重</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="weight" class="form-control" id="edit_Weight" placeholder="单位kg">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">左眼视力</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="leftSight" class="form-control" id="edit_Left" placeholder="0.1-5.0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">右眼视力</label>
+                        <div class="col-sm-6">
+                            <input type="text" name="rightSight" class="form-control" id="edit_Right" placeholder="0.1-5.0">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary" id="student_uptate_btn">保存</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap-table.min.js" type="text/javascript"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap-select.min.js" type="text/javascript"></script>
+<!--
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript"></script>
+&lt;%&ndash;<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" type="text/javascript"></script>&ndash;%&gt;
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/locale/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
+-->
+
+<script type="text/javascript" >
+    //调用函数，初始化表格
+    initTable();
+    //当点击查询按钮的时候执行,bootstrap-table前端分页是不能使用搜索功能，所以可以提取出来自定义搜索。后台代码，在后面给出
+    $("#queryBtn").bind("click", initTable);
+
+    function initTable(message) {
+        //先清除表单内容，是为了让点击自定义搜索的时候就显示内容
+        $('#mytab').bootstrapTable('destroy');
+        $('#mytab').bootstrapTable({
+            url: "${pageContext.request.contextPath}/teenhealth/page4list",
+            contentType: "application/x-www-form-urlencoded",   //必须有
+            method: 'POST',                      //请求方式（*）
+            theadClasses:'',
+            toolbar: '#toolbar',              //工具按钮用哪个容器
+            striped: true,                      //是否显示行间隔色
+            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true,                   //是否显示分页（*）
+            sortable: true,                     //是否启用排序
+            sortOrder: "asc",                   //排序方式
+            sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+            pageNumber: 1,                      //初始化加载第一页，默认第一页,并记录
+            pageSize: 10,                     //每页的记录行数（*）
+            pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+            search: false,                      //是否显示表格搜索,服务端分页无法使用搜索功能，可以使用自定义搜索
+            strictSearch: true,
+            showColumns: false,               //是否显示所有的列（选择显示的列）
+            showRefresh: false,                  //是否显示刷新按钮
+            minimumCountColumns: 2,             //最少允许的列数
+            clickToSelect: true,                //是否启用点击选中行
+            //height: 500,                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+            showToggle: false,                   //是否显示详细视图和列表视图的切换按钮
+            cardView: false,                    //是否显示详细视图
+            detailView: false,                  //是否显示父子表
+            //得到查询的参数
+            queryParams: function (params) {
+                //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                var temp = {
+                    pageSize: params.limit,                         //页面大小
+                    pageNumber: (params.offset / params.limit) + 1,  //页码
+                    studentNo: $("#studentno").val(),
+                    name:$("#name").val(),
+                };
+                return temp;
+            },
+
+            columns: [
+                {
+                    field: "state",
+                    checkbox: true, //第一栏显示复选框
+                    align: 'center'
+                },
+                {
+                    title: '编号',
+                    field: 'studentNo',
+                    //sortable : true
+                },
+                {
+                    title: '姓名',
+                    field: 'studentName',
+                    //sortable : true
+                },
+                {
+                    title: '性别',
+                    field: 'sex',
+                    formatter : function(value,row, index){
+                        if (value === 1)
+                            return "男";
+                        return "女";
+                    }
+                },
+                {
+                    title: '年龄/岁',
+                    field: 'age',
+                    //sortable : true
+                },
+                {
+                    title: '身高/cm',
+                    field: 'stature',
+                    //sortable : true
+                },
+                {
+                    title: '体重/kg',
+                    field: 'weight',
+                    //sortable : true
+                },
+                {
+                    field: 'ID',
+                    title: '操作',
+                    width:  200,
+                    align: 'center',
+                    valign: 'middle',
+                    formatter: function (value, row, index) {
+
+                        var e = '<a id="edit" class="btn btn-success btn-sm">修改</a> ';
+                        var d = '<a id="delete" class="btn btn-danger btn-sm">删除</a> ';
+                        var o = '<a id="outputExcel_btn" class="btn btn-primary btn-sm">打印报告</a> ';
+                        return  e + d + o;
+                    },
+                    events: {
+                        'click #edit': function (e, value, row, index) {
+                            selectStudent(row.id);
+                            //把学生id传递给模态框的保存按钮
+                            $("#student_uptate_btn").attr("edit-id",row.id);
+                            //弹出修改学生模态框
+                            $("#studentEditModel").modal({
+                                backdrop:"static"
+                            });
+                        },
+
+                        'click #delete': function (e, value, row, index) {
+                            if(window.confirm('你确定要删除吗？')){
+                                //alert("确定");
+                                $.ajax({
+                                    url:"${pageContext.request.contextPath}/teenhealth/deleteStudent/"+row.id+".action",
+                                    type: "DELETE",//传输方式
+                                    success: function(msg){
+                                        $('#mytab').bootstrapTable('refresh', {
+                                            url : "${pageContext.request.contextPath}/teenhealth/page4list"
+                                        });
+                                    }
+                                });
+                                return true;
+                            }else{
+                                //alert("取消");
+                                return false;
+                            }
+                        },
+
+                        'click #outputExcel_btn': function (e, value, row, index) {
+                            $.ajax({
+                                url:"${pageContext.request.contextPath}/teenhealth/down/"+row.id+".action",
+                                type: "GET",//传输方式
+                                success: function(msg){
+                                    if (msg.code===200){
+                                        var url="${pageContext.request.contextPath}/teenhealth/output/"+row.id+".action";
+                                        window.location.href=url;
+                                    }
+                                    else{
+                                        alert("无训练信息，无法导出报表");
+                                    }
+                                }
+                            });
+
+                        }
+                    }
+                }
+            ]
+        });
+    }
+
+    //重置
+    $('#resetBtn').click(function () {
+        $('#studentno').val('');
+        $('#name').val('');
+    });
+
+
+    //批量删除
+    $('#btn_delete').click(function () {
+        if (!confirm("是否确认删除？"))
+            return;
+        var rows = $("#mytab").bootstrapTable('getSelections');// 获得要删除的数据
+        if (rows.length === 0) {// rows 主要是为了判断是否选中，下面的else内容才是主要
+            alert("请先选择要删除的记录!");
+            return;
+        } else {
+            var ids = new Array();// 声明一个数组
+            $(rows).each(function() {// 通过获得别选中的来进行遍历
+                ids.push(this.id);// cid为获得到的整条数据中的一列
+            });
+            $.ajax({
+                url : "${pageContext.request.contextPath}/teenhealth/deleteStudents",
+                data : "ids=" + ids,
+                type : "post",
+                dataType : "json",
+                success : function(data) {
+                    $('#mytab').bootstrapTable('refresh', {
+                        url : "${pageContext.request.contextPath}/teenhealth/page4list"
+                    });
+                }
+            });
+        }
+    })
+
+    //点击添加按钮
+    $("#student_add_model").click(function () {
+
+        $("#studentAddModel").modal({
+            backdrop:"static"
+        });
+        $("#studentAddModel form")[0].reset();
+    });
+    //点击保存按钮，提交添加学生信息
+    $("#student_add_btn").click(function () {
+        //发送ajax请求
+        $.ajax({
+            url:"${pageContext.request.contextPath}/teenhealth/addStudent.action",
+            type:"POST",
+            data:$("#studentAddModel form").serialize(), //#xxx form 获取表单数据，serialize序列化
+            success:function (result) {
+                if(result.code===300)
+                    alert("插入失败，已有相同学号学生")
+                else {
+                    $("#studentAddModel").modal('hide');
+                    alert("添加成功");
+                }
+
+            }
+        });
+    });
+
+
+    //点击修改按钮
+    $(document).on("click",".student_edit_btn",function () {
+        //查出、显示学生信息
+        selectStudent($(this).attr("edit-id"));
+        //把学生id传递给模态框的保存按钮
+        $("#student_uptate_btn").attr("edit-id",$(this).attr("edit-id"));
+        //弹出修改学生模态框
+        $("#studentEditModel").modal({
+            backdrop:"static"
+        });
+    });
+    //点击修改按钮获取学生信息
+    function selectStudent(id){
+        $.ajax({
+            url:"${pageContext.request.contextPath}/teenhealth/selectStudentByid.action",
+            type:"POST",
+            data:{"id":id},
+            success:function (result) {
+                console.log(result);
+                var student=result;
+                $("#edit_Name").val(student.studentName);
+                $("#edit_Age").val(student.age);
+                $(":radio[name='sex'][value='" + student.sex + "']").prop("checked", "checked");
+                $("#edit_High").val(student.stature);
+                $("#edit_Weight").val(student.weight);
+                $("#edit_Left").val(student.leftSight);
+                $("#edit_Right").val(student.rightSight);
+            }
+        });
+    }
+    //点击保存提交修改学生信息
+    $("#student_uptate_btn").click(function () {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/teenhealth/editStudent/"+$(this).attr("edit-id")+".action",
+            type:"POST",
+            data:$("#studentEditModel form").serialize(),
+            success:function (result) {
+
+                $('#mytab').bootstrapTable('refresh', {
+                    url : "${pageContext.request.contextPath}/teenhealth/page4list"
+                });
+                $("#studentEditModel").modal('hide');
+                alert("修改成功");
+            }
+        });
+    })
+
+</script>
+</body>
+</html>
+
